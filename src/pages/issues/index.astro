@@ -1,0 +1,29 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import { contentfulClient, Issues } from '@/lib/contentful';
+
+let entries;
+
+try {
+  entries = await contentfulClient.getEntries<Issues>({
+    content_type: 'issues',
+  });
+} catch (error) {
+  return Astro.redirect('/404');
+}
+---
+
+<Layout title="This week in Solid | Issues">
+  <ul>
+    {
+      entries.items.map((item) => (
+        <li>
+          <a href={`issues/${item.fields.nro}`}>Issue #{item.fields.nro}</a>
+          <span>
+            -- {new Date(item.fields.publishedAt).toLocaleDateString()}
+          </span>
+        </li>
+      ))
+    }
+  </ul>
+</Layout>

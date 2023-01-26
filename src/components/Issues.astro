@@ -1,0 +1,16 @@
+---
+import type { Issue as IssueType } from '@/lib/contentful';
+import Issue from './Issue.astro';
+
+const { items } = Astro.props;
+---
+
+{
+  (
+    <>
+      {items.map((issue: IssueType) => (
+        <Issue issue={issue} />
+      ))}
+    </>
+  )
+}

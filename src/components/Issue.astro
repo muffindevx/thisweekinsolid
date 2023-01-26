@@ -1,0 +1,17 @@
+---
+const { issue } = Astro.props;
+---
+
+<article>
+  <header>
+    <h2>
+      <a href={issue.fields.url} target="_blank">
+        {issue.fields.title}
+      </a>
+    </h2>
+  </header>
+  <p>{issue.fields.description}</p>
+  <footer>
+    <span>{issue.fields.author}</span>
+  </footer>
+</article>

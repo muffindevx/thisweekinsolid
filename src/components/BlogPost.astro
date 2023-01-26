@@ -1,0 +1,13 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import Issues from './Issues.astro';
+
+const { title, description, issues } = Astro.props;
+---
+
+<Layout title={description}>
+  <section>
+    <h2>{title}</h2>
+    <Issues items={issues} />
+  </section>
+</Layout>

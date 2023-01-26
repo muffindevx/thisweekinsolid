@@ -1,0 +1,22 @@
+---
+import BlogPost from '@/components/BlogPost.astro';
+import Layout from '@/layouts/Layout.astro';
+import { contentfulClient, Issues } from '@/lib/contentful';
+
+let entries;
+const { id } = Astro.params;
+
+try {
+  entries = await contentfulClient.getEntries<Issues>({
+    content_type: 'issues',
+    select: 'fields.items',
+    'fields.nro': id,
+  });
+} catch (error) {
+  return Astro.redirect('/404');
+}
+
+const { items = [] } = entries?.items[0].fields ?? {};
+---
+
+<BlogPost title={`This week in Solid | Issue #${id}`} issues={items} />
